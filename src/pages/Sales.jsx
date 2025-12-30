@@ -4,13 +4,10 @@ import SalesRoom from "./SalesRoom";
 import { useState} from "react";
 
 function Sales() {
+  const [navOpen, setNavOpen] = useState(true); 
   const [tabs, setTabs] = useState([
     { id: 1, title: "Room 1" },
-    { id: 2, title: "Room 2" },
-    { id: 3, title: "Room 3" },
-    { id: 4, title: "Room 4" },
-    { id: 5, title: "Room 5" },
-    { id: 6, title: "Room 6" },
+    
   ]);
   const [activeTab, setActiveTab] = useState(1);
 
@@ -31,14 +28,12 @@ function Sales() {
 
   return (
     <div className="bg-gray-50 h-screen overflow-hidden">
-      <div className="flex h-full">
-
-        <Navbar />
+<div className="flex min-h-screen bg-gray-50"> {/* ADD flex wrapper */}
+      <Navbar open={navOpen} setOpen={setNavOpen} />
 
         {/* MAIN CONTENT */}
-        <div className="flex flex-col flex-1 overflow-hidden">
-          <TopBar />
-
+         <div className={`flex-1 transition-all duration-300 ${navOpen ? "ml-56" : "ml-0"}`}>
+        <TopBar />
           {/* Tabs */}
           <div className="flex items-center bg-gray-200 border-b overflow-x-auto">
             {tabs.map(tab => (
@@ -73,13 +68,16 @@ function Sales() {
 
           {/* Room Content */}
           <div className="flex-1 overflow-auto">
+            
             {tabs.map(tab =>
               tab.id === activeTab ? <SalesRoom key={tab.id} /> : null
             )}
           </div>
+          
         </div>
-
+            
       </div>
+      
     </div>
   );
 }
