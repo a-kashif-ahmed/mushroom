@@ -5,9 +5,9 @@ import Sales from "./Sales";
 import QuickAction from "../components/Quick";
 
 function Homepage() {
-    const [navOpen, setNavOpen] = useState(true);
+    const [navOpen, setNavOpen] = useState(false);
     return (
-        <div className="bg-gray-50 h-screen overflow-hidden">
+        <div className="bg-gray-50 h-full overflow-auto">
   <div className="flex min-h-screen bg-gray-50">
 
     {/* SIDEBAR */}

@@ -5,7 +5,7 @@ import TopBar from "../components/TopBar";
 
 
 function LoginPage(){
-    const [navOpen, setNavOpen] = useState(true);
+    const [navOpen, setNavOpen] = useState(false);
     return(
 <div className="bg-gray-50 h-screen overflow-hidden">
   <div className="flex min-h-screen bg-gray-50">

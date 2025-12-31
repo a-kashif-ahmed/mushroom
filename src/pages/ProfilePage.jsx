@@ -19,7 +19,7 @@ function Profile() {
 
   return (
     <div className="bg-gray-50 h-screen overflow-hidden">
-  <div className="flex min-h-screen bg-gray-50">
+  <div className="flex justify-center min-h-screen bg-gray-50">
 
     {/* SIDEBAR */}
     <Navbar open={navOpen} />
@@ -43,7 +43,7 @@ function Profile() {
       </div>
 
       {/* PROFILE CARD */}
-      <div className=" m-2 bg-white rounded-xl shadow-md border p-6 max-w-3xl">
+      <div className="bg-white rounded-xl shadow-md border p-6 max-w-3xl">
 
         {/* HEADER */}
         <div className="flex items-center gap-4 border-b pb-4 mb-6">

@@ -5,7 +5,7 @@ import TopBar from "../components/TopBar";
 
 
 export default function AdminPanel() {
-    const [navOpen, setNavOpen] = useState(true);
+    const [navOpen, setNavOpen] = useState(false);
     const [owners, setOwners] = useState([]);
     const [managers, setManagers] = useState([]);
 
