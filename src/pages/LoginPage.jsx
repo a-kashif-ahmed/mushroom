@@ -7,14 +7,19 @@ import TopBar from "../components/TopBar";
 function LoginPage(){
     const [navOpen, setNavOpen] = useState(true);
     return(
-        <div className="bg-gray-50">
-            <div className="flex min-h-screen bg-gray-50">
-                <Navbar open={navOpen} setOpen={setNavOpen} />
+<div className="bg-gray-50 h-screen overflow-hidden">
+  <div className="flex min-h-screen bg-gray-50">
 
-                {/* MAIN CONTENT */}
-                <div className={`flex-1 transition-all duration-300 ${navOpen ? "ml-56" : "ml-0"}`}>
-                    <TopBar />
+    {/* SIDEBAR */}
+    <Navbar open={navOpen} />
 
+    {/* MAIN CONTENT */}
+    <div
+      className={`flex-1 transition-all duration-300
+      ${navOpen ? "md:ml-56 ml-0" : "ml-0"}`}
+    >
+      <TopBar onToggleSidebar={() => setNavOpen(v => !v)} />
+      {/* page content here */}
             <section >
   <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <a href="#" className="flex items-center mb-6 text-2xl font-semibold text-gray-900 ">
@@ -28,11 +33,11 @@ function LoginPage(){
               <form className="space-y-4 md:space-y-6" action="#">
                   <div>
                       <label for="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                      <input type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required=""/>
+                      <input type="email" name="email" id="email" className="bg-white border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500"  required=""/>
                   </div>
                   <div>
                       <label for="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                      <input type="password" name="password" id="password"  className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
+                      <input type="password" name="password" id="password"  className=" border border-gray-300 text-gray-900 rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 bg-white dark:border-gray-600 dark:placeholder-gray-400  dark:focus:ring-blue-500 dark:focus:border-blue-500" required=""/>
                   </div>
                   <div className="flex items-center justify-between">
                       {/* <div className="flex items-start">
@@ -45,7 +50,7 @@ function LoginPage(){
                       </div> */}
                       <a href="#" className="text-sm font-medium text-white hover:underline dark:text-primary-500">Forgot password?</a>
                   </div>
-                  <button type="submit" className="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
+                  <button type="submit" className="w-full hover:opacity-80 text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
                   
               </form>
           </div>

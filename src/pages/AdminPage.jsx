@@ -19,7 +19,7 @@ export default function AdminPanel() {
         companyName: "",
         owner: "",
         manager: "",
-        active: true,
+        active: false,
     });
 
     const [companies, setCompanies] = useState([]);
@@ -53,15 +53,28 @@ export default function AdminPanel() {
         const diff = expiry - new Date();
         return Math.max(Math.ceil(diff / (1000 * 60 * 60 * 24)), 0);
     };
+    const toggleCompanyActive = (id) => {
+        setCompanies(prev =>
+            prev.map(c =>
+                c.id === id ? { ...c, active: !c.active } : c
+            )
+        );
+    };
 
     return (
-        <div className="bg-gray-50">
+        <div className="bg-gray-50 h-screen overflow-hidden">
             <div className="flex min-h-screen bg-gray-50">
-                <Navbar open={navOpen} setOpen={setNavOpen} />
+
+                {/* SIDEBAR */}
+                <Navbar open={navOpen} />
 
                 {/* MAIN CONTENT */}
-                <div className={`flex-1 transition-all duration-300 ${navOpen ? "ml-56" : "ml-0"}`}>
-                    <TopBar />
+                <div
+                    className={`flex-1 transition-all duration-300
+      ${navOpen ? "md:ml-56 ml-0" : "ml-0"}`}
+                >
+                    <TopBar onToggleSidebar={() => setNavOpen(v => !v)} />
+                    {/* page content here */}
                     <div className="min-h-screen bg-gray-100 p-6">
                         <div className="max-w-6xl mx-auto space-y-6">
 
@@ -94,7 +107,7 @@ export default function AdminPanel() {
 
                                     <button
                                         onClick={() => setShowOwnerModal(true)}
-                                        className="bg-blue-500 text-white px-3 rounded"
+                                        className="bg-emerald-500 text-white px-3 rounded"
                                     >
                                         +
                                     </button>
@@ -115,7 +128,7 @@ export default function AdminPanel() {
 
                                     <button
                                         onClick={() => setShowManagerModal(true)}
-                                        className="bg-blue-500 text-white px-3 rounded"
+                                        className="bg-emerald-500 text-white px-3 rounded"
                                     >
                                         +
                                     </button>
@@ -188,14 +201,14 @@ export default function AdminPanel() {
                                                     <td className="px-4 py-3">{c.owner}</td>
                                                     <td className="px-4 py-3">{c.manager}</td>
                                                     <td className="px-4 py-3">
-                                                        <span
-                                                            className={`px-2 py-1 rounded text-xs font-semibold ${c.active
-                                                                ? "bg-green-100 text-green-700"
-                                                                : "bg-red-100 text-red-700"
-                                                                }`}
+                                                        <button
+                                                            onClick={() => toggleCompanyActive(c.id)}
+                                                            className={`relative inline-flex h-6 w-11 items-center rounded-full transition ${c.active ? "bg-green-500" : "bg-gray-300"}`}
                                                         >
-                                                            {c.active ? "Active" : "Inactive"}
-                                                        </span>
+                                                            <span
+                                                                className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${c.active ? "translate-x-6" : "translate-x-1"}`}
+                                                            />
+                                                        </button>
                                                     </td>
                                                     <td className="px-4 py-3 font-semibold">
                                                         <span
@@ -218,74 +231,74 @@ export default function AdminPanel() {
                                 </table>
                             </div>
                             {showOwnerModal && (
-  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div className="bg-white rounded-lg p-6 w-96 space-y-4">
-      <h2 className="text-lg font-semibold">Create Owner Profile</h2>
+                                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+                                    <div className="bg-white rounded-lg p-6 w-96 space-y-4">
+                                        <h2 className="text-lg font-semibold">Create Owner Profile</h2>
 
-      <input
-        className="border rounded px-3 py-2 w-full"
-        placeholder="Owner Name"
-        value={newOwner}
-        onChange={(e) => setNewOwner(e.target.value)}
-      />
+                                        <input
+                                            className="border rounded px-3 py-2 w-full"
+                                            placeholder="Owner Name"
+                                            value={newOwner}
+                                            onChange={(e) => setNewOwner(e.target.value)}
+                                        />
 
-      <div className="flex justify-end gap-2">
-        <button
-          onClick={() => setShowOwnerModal(false)}
-          className="px-4 py-2 border rounded"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={() => {
-            if (!newOwner) return;
-            setOwners([...owners, { id: Date.now(), name: newOwner }]);
-            setNewOwner("");
-            setShowOwnerModal(false);
-          }}
-          className="px-4 py-2 bg-green-600 text-white rounded"
-        >
-          Save
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-{showManagerModal && (
-  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-    <div className="bg-white rounded-lg p-6 w-96 space-y-4">
-      <h2 className="text-lg font-semibold">Create Manager Profile</h2>
+                                        <div className="flex justify-end gap-2">
+                                            <button
+                                                onClick={() => setShowOwnerModal(false)}
+                                                className="px-4 py-2 border rounded"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    if (!newOwner) return;
+                                                    setOwners([...owners, { id: Date.now(), name: newOwner }]);
+                                                    setNewOwner("");
+                                                    setShowOwnerModal(false);
+                                                }}
+                                                className="px-4 py-2 bg-green-600 text-white rounded"
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {showManagerModal && (
+                                <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+                                    <div className="bg-white rounded-lg p-6 w-96 space-y-4">
+                                        <h2 className="text-lg font-semibold">Create Manager Profile</h2>
 
-      <input
-        className="border rounded px-3 py-2 w-full"
-        placeholder="Manager Name"
-        value={newManager}
-        onChange={(e) => setNewManager(e.target.value)}
-      />
+                                        <input
+                                            className="border rounded px-3 py-2 w-full"
+                                            placeholder="Manager Name"
+                                            value={newManager}
+                                            onChange={(e) => setNewManager(e.target.value)}
+                                        />
 
-      <div className="flex justify-end gap-2">
-        <button
-          onClick={() => setShowManagerModal(false)}
-          className="px-4 py-2 border rounded"
-        >
-          Cancel
-        </button>
-        <button
-          onClick={() => {
-            if (!newManager) return;
-            setManagers([...managers, { id: Date.now(), name: newManager }]);
-            setNewManager("");
-            setShowManagerModal(false);
-          }}
-          className="px-4 py-2 bg-green-600 text-white rounded"
-        >
-          Save
-        </button>
-      </div>
-    </div>
-  </div>
-)}
-    
+                                        <div className="flex justify-end gap-2">
+                                            <button
+                                                onClick={() => setShowManagerModal(false)}
+                                                className="px-4 py-2 border rounded"
+                                            >
+                                                Cancel
+                                            </button>
+                                            <button
+                                                onClick={() => {
+                                                    if (!newManager) return;
+                                                    setManagers([...managers, { id: Date.now(), name: newManager }]);
+                                                    setNewManager("");
+                                                    setShowManagerModal(false);
+                                                }}
+                                                className="px-4 py-2 bg-green-600 text-white rounded"
+                                            >
+                                                Save
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+
 
                         </div>
                     </div>

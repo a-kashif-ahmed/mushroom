@@ -1,8 +1,17 @@
-
-function TopBar() {
+function TopBar({ onToggleSidebar }) {
   return (
     <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
-      <div className="flex items-center justify-between px-4 md:px-6 h-16">
+      <div className="flex items-center gap-3 px-4 md:px-6 h-16">
+
+        {/* SIDEBAR TOGGLE */}
+        <button
+  onClick={onToggleSidebar}
+  className="p-2 rounded-md hover:bg-gray-100"
+>
+  ☰
+</button>
+
+
         <h1 className="text-lg md:text-xl font-semibold text-gray-800 whitespace-nowrap">
           Mushroom Inventory
         </h1>
@@ -17,7 +26,7 @@ function TopBar() {
           />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 ml-auto">
           <button className="md:hidden p-2 rounded hover:bg-gray-100">
             🔍
           </button>
@@ -26,10 +35,12 @@ function TopBar() {
             A
           </div>
 
-          <a href="/login"><button className="hidden sm:block text-sm px-4 py-2 rounded-md
-                             bg-emerald-600 text-white hover:bg-emerald-700">
-            Login
-          </button></a>
+          <a href="/login">
+            <button className="hidden sm:block text-sm px-4 py-2 rounded-md
+                               bg-emerald-600 text-white hover:bg-emerald-700">
+              Login
+            </button>
+          </a>
         </div>
       </div>
     </header>

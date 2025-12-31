@@ -7,13 +7,19 @@ import QuickAction from "../components/Quick";
 function Homepage() {
     const [navOpen, setNavOpen] = useState(true);
     return (
-        <div className="bg-gray-50">
-            <div className="flex min-h-screen bg-gray-50">
-                <Navbar open={navOpen} setOpen={setNavOpen} />
+        <div className="bg-gray-50 h-screen overflow-hidden">
+  <div className="flex min-h-screen bg-gray-50">
 
-                {/* MAIN CONTENT */}
-                <div className={`flex-1 transition-all duration-300 ${navOpen ? "ml-56" : "ml-0"}`}>
-                    <TopBar />
+    {/* SIDEBAR */}
+    <Navbar open={navOpen} />
+
+    {/* MAIN CONTENT */}
+    <div
+      className={`flex-1 transition-all duration-300
+      ${navOpen ? "md:ml-56 ml-0" : "ml-0"}`}
+    >
+      <TopBar onToggleSidebar={() => setNavOpen(v => !v)} />
+      {/* page content here */}
                     <div className="flex justify-center">
                         <h2 className=" text-5xl text-green-700 p-7">Welcome to the Mushroom Inventory Management</h2>
                     </div>
